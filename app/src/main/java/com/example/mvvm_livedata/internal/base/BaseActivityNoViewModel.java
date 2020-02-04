@@ -1,5 +1,6 @@
 package com.example.mvvm_livedata.internal.base;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 
@@ -40,6 +41,9 @@ public abstract class BaseActivityNoViewModel<B extends ViewDataBinding> extends
             snackbar.show();
         }
     }
+
+
+    public abstract Activity getActivityG();
 
     public B getDataBinder() {
         return binding;
