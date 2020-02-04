@@ -136,123 +136,11 @@ public class SharedPrefHelper
     }
 
 
-//=======================referral code and link====================================================
-    public void setReferralInviteCode(String inviteLink) {
-        edit = sharedPreferences.edit();
-        edit.putString("InviteCode", inviteLink);
-        edit.apply();
-    }
-
-    public String getReferralCode() {
-        return sharedPreferences.getString("InviteCode", "");
-    }
-
-    public String getReferralInviteLink() {
-        return sharedPreferences.getString("InviteLink", "");
-    }
-
- public void setReferralInviteLink(String inviteLink) {
-        edit = sharedPreferences.edit();
-        edit.putString("InviteLink", inviteLink);
-        edit.apply();
-    }
-
-//=======================referral code and link====================================================
-
-
-    public void setFirstLoginDone(Context context) {
-        setFirstLogin(context, false); //true==not done
-    }
-
-    public void setFirstLogin(Context context, boolean FirstLogin) {
-        SharedPreferences.Editor xCash = context.getSharedPreferences("xCashFirstLogin",
-                Context.MODE_PRIVATE).edit();
-        xCash.putBoolean("FirstLogin", FirstLogin);
-        xCash.apply();
-    }
-
-    public boolean isFirstLogin(Context context) {
-        return context.getSharedPreferences("xCashFirstLogin", Context.MODE_PRIVATE).getBoolean(
-                "FirstLogin", true);
-    }
-
-    public void setFirstLoginAppGuideDone(Context context) {
-        setFirstLoginAppGuide(context, false); //true==not done
-    }
-
-    public void setFirstLoginAppGuide(Context context, boolean FirstLogin) {
-        SharedPreferences.Editor xCash = context.getSharedPreferences("xCashFirstLogin",
-                Context.MODE_PRIVATE).edit();
-        xCash.putBoolean("FirstLoginAppGuide", FirstLogin);
-        xCash.apply();
-    }
-
-    public boolean isFirstLoginAppGuide(Context context) {
-        return context.getSharedPreferences("xCashFirstLogin", Context.MODE_PRIVATE).getBoolean(
-                "FirstLoginAppGuide", true);
-    }
-
-
-    //show indicator on scan screen on options button. start
-    public void setScanTutorialDone(Context context) {
-        setscanTutorial(context, false); //true==not done
-    }
-
-    public void setscanTutorial(Context context, boolean FirstLogin) {
-        SharedPreferences.Editor xCash = context.getSharedPreferences("xCashFirstLogin",
-                Context.MODE_PRIVATE).edit();
-        xCash.putBoolean("scanTutorial", FirstLogin);
-        xCash.apply();
-    }
-
-    public boolean isScanTutorialNotWatched(Context context) {
-        return context.getSharedPreferences("xCashFirstLogin", Context.MODE_PRIVATE).getBoolean(
-                "scanTutorial", true);
-    }
-
-
-    //show indicator on scan screen on options button. end
-
 
     public boolean isLogInSkipped() {
         return getId().isEmpty();
     }
 
-
-    //    mixpanel distinct id
-    public void setDistinctId(Context context, String DistinctId) {
-        SharedPreferences.Editor xCash = context.getSharedPreferences("xCashDistinctId",
-                Context.MODE_PRIVATE).edit();
-        xCash.putString("DistinctId", DistinctId);
-        xCash.apply();
-    }
-
-    public String getDistinctId(Context context) {
-        return context.getSharedPreferences("xCashDistinctId", Context.MODE_PRIVATE).getString(
-                "DistinctId", System.currentTimeMillis() + "");
-    }
-//    mixpanel distinct id
-
-
-    public void setIdToShow(String IdToShow) {
-        edit = sharedPreferences.edit();
-        edit.putString("IdToShow", IdToShow);
-        edit.apply();
-    }
-
-    public String getIdToShow() {
-        return sharedPreferences.getString("IdToShow", "");
-    }
-
-    public void setTempId(String TempId) {
-        edit = sharedPreferences.edit();
-        edit.putString("TempId", TempId);
-        edit.apply();
-    }
-
-    public String getTempId() {
-        return sharedPreferences.getString("TempId", getId());
-    }
 
     public void setApiToken(String api_token) {
         edit = sharedPreferences.edit();
@@ -265,98 +153,6 @@ public class SharedPrefHelper
     }
 
 
-    public String getTotalPointsOrignal() {
-        return sharedPreferences.getString("total_points", "0.00");
-    }
-
-    public String getTotalPointsFormatted() {
-        return UtillsG.formatCompletely(getTotalPointsOrignal());
-    }
-
-
-    public boolean isPointsAvailable(String requiredPoints) {
-        try {
-            requiredPoints = requiredPoints.replaceAll(",", "");
-            return Float.parseFloat(getTotalPoints()) >= Float.parseFloat(requiredPoints);
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
-        return true;
-    }
-
-    public boolean isAvailable_AvailableOnly(String requiredPoints) {
-        try {
-            requiredPoints = requiredPoints.replaceAll(",", "");
-            return Float.parseFloat(getAvailablePointsUnformatted()) >= Float.parseFloat(requiredPoints);
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
-        return true;
-    }
-
-    public String getTotalPoints() {
-        String totalPointsOrignal = getTotalPointsOrignal();
-        if (totalPointsOrignal.contains(",")) {
-            totalPointsOrignal = totalPointsOrignal.replace(",", "");
-        }
-        return totalPointsOrignal;
-    }
-
-
-    public String getPendingPoints() {
-        return sharedPreferences.getString("Pending_points", "0.00");
-    }
-
-    public void setPendingPoints(String Pending_points) {
-        if (Pending_points == null) {
-            return;
-        }
-        edit = sharedPreferences.edit();
-        edit.putString("Pending_points", Pending_points);
-        edit.apply();
-    }
-
-    public String getBonusPointsUnformatted() {
-        String bonusPoints = getBonusPoints();
-        if (bonusPoints.contains(",")) {
-            bonusPoints = bonusPoints.replaceAll(",", "");
-        }
-        return bonusPoints;
-    }
-
-    public String getBonusPoints() {
-        return sharedPreferences.getString("BonusPoints", "0.00");
-    }
-
-    public void setBonusPoints(String BonusPoints) {
-        if (BonusPoints == null) {
-            return;
-        }
-        edit = sharedPreferences.edit();
-        edit.putString("BonusPoints", BonusPoints);
-        edit.apply();
-    }
-
-    public String getAvailablePointsUnformatted() {
-        String availablePoints = getAvailablePoints();
-        if (availablePoints.contains(",")) {
-            availablePoints = availablePoints.replaceAll(",", "");
-        }
-        return availablePoints;
-    }
-
-    public String getAvailablePoints() {
-        return sharedPreferences.getString("available", "0.00");
-    }
-
-    public void setAvailablePoints(String available) {
-        if (available == null) {
-            return;
-        }
-        edit = sharedPreferences.edit();
-        edit.putString("available", available);
-        edit.apply();
-    }
     public void setEmailVerified(boolean emailVerified) {
         edit = sharedPreferences.edit();
         edit.putBoolean("EmailVerified", emailVerified);
@@ -377,32 +173,6 @@ public class SharedPrefHelper
         return sharedPreferences.getBoolean("PhoneVerified", false);
     }
 
-    public void setShowReferralTab(boolean ShowReferralTab) {
-        edit = sharedPreferences.edit();
-        edit.putBoolean("ShowReferralTab", ShowReferralTab);
-        edit.apply();
-    }
-
-    public boolean showReferralTab() {
-        return sharedPreferences.getBoolean("ShowReferralTab", false);
-    }
-
-
-    public void setTotalPoints(String total_points) {
-        if (total_points == null) {
-            return;
-        }
-        edit = sharedPreferences.edit();
-        try {
-            total_points = UtillsG.formatNumber(total_points);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        edit.putString("total_points", total_points);
-        edit.apply();
-    }
-
-
     public void setisVibrate(boolean isVibrate) {
         edit = sharedPreferences.edit();
         edit.putBoolean("isVibrate", isVibrate);
@@ -413,38 +183,6 @@ public class SharedPrefHelper
         return sharedPreferences.getBoolean("isVibrate", true);
     }
 
-
-    public void setisxCashNotification(boolean isxCashNotification) {
-        edit = sharedPreferences.edit();
-        edit.putBoolean("isxCashNotification", isxCashNotification);
-        edit.apply();
-    }
-
-    public boolean isxCashNotification() {
-        return sharedPreferences.getBoolean("isxCashNotification", true);
-    }
-
-
-    public void setisTransactionalNotification(boolean isTransactionalNotification) {
-        edit = sharedPreferences.edit();
-        edit.putBoolean("isTransactionalNotification", isTransactionalNotification);
-        edit.apply();
-    }
-
-    public boolean isTransactionalNotification() {
-        return sharedPreferences.getBoolean("isTransactionalNotification", true);
-    }
-
-
-    public void setfbLink(String fbLink) {
-        edit = sharedPreferences.edit();
-        edit.putString("fbLink", fbLink);
-        edit.apply();
-    }
-
-    public String getfbLink() {
-        return sharedPreferences.getString("fbLink", "");
-    }
 
     public void setFacebookId(String facebook_id) {
         edit = sharedPreferences.edit();
@@ -461,27 +199,6 @@ public class SharedPrefHelper
     }
 
 
-    public void setFacebookName(String facebook_id) {
-        edit = sharedPreferences.edit();
-        edit.putString("FacebookName", facebook_id);
-        edit.apply();
-    }
-
-    public String getFacebookName() {
-        return sharedPreferences.getString("FacebookName", getFirstName());
-    }
-
-
-    public void setCitizenId(String CitizenId) {
-        edit = sharedPreferences.edit();
-        edit.putString("CitizenId", CitizenId);
-        edit.apply();
-    }
-
-    public String getCitizenId() {
-        return sharedPreferences.getString("CitizenId", "");
-    }
-
     public void setisFingerPrint(Boolean isFingerPrint) {
         edit = sharedPreferences.edit();
         edit.putBoolean("isFingerPrint", isFingerPrint);
@@ -491,18 +208,6 @@ public class SharedPrefHelper
     public boolean isFingerPrint() {
         return sharedPreferences.getBoolean("isFingerPrint", true);
     }
-
-    public void setTransactionPin(String TransactionPin) {
-        edit = sharedPreferences.edit();
-        edit.putString("TransactionPin", TransactionPin);
-        edit.apply();
-    }
-
-
-    public String getTransactionPin() {
-        return sharedPreferences.getString("TransactionPin", "");
-    }
-
 
     public void setGender(String Gender) {
         edit = sharedPreferences.edit();
@@ -539,77 +244,4 @@ public class SharedPrefHelper
         edit.putString("dob", dob);
         edit.apply();
     }
-
-    /**
-     * Used with Event Bus to show red dot on vouchers main service if any new voucher is added.
-     */
-    public boolean isNewVoucherAvailable(String topVoucherId) {
-        String lastTopVoucherId = sharedPreferences.getString("TopVoucherId", "");
-        if (lastTopVoucherId.isEmpty()) {
-            return false;
-        }
-        return !lastTopVoucherId.equals(topVoucherId);
-    }
-
-    public boolean showIndicator() {
-        return sharedPreferences.getBoolean("ShowIndicator", false);
-    }
-
-    public void setShowIndicator(boolean ShowIndicator) {
-        edit = sharedPreferences.edit();
-        edit.putBoolean("ShowIndicator", ShowIndicator);
-        edit.apply();
-    }
-
-    /**
-     * Used with Event Bus to show red dot on vouchers main service if any new voucher is added.
-     */
-
-
-    public String getDeepLinkUrl(Context context) {
-        SharedPreferences sharedPreferencesDeeplink = context.getSharedPreferences("xCashDeeplink"
-                , Context.MODE_PRIVATE);
-        return sharedPreferencesDeeplink.getString("deepLinkUrl", "");
-    }
-
-    public void setDeepLinkUrl(Context context, String deepLinkUrl) {
-        SharedPreferences        sharedPreferencesDeeplink = context.getSharedPreferences(
-                "xCashDeeplink", Context.MODE_PRIVATE);
-        SharedPreferences.Editor edit                      = sharedPreferencesDeeplink.edit();
-        edit.putString("deepLinkUrl", deepLinkUrl);
-        edit.apply();
-    }
-
-    public String getShortDeepLinkUrl(Context context) {
-        SharedPreferences sharedPreferencesDeeplink = context.getSharedPreferences("xCashDeeplink"
-                , Context.MODE_PRIVATE);
-        return sharedPreferencesDeeplink.getString("ShortDeepLinkUrl", "");
-    }
-
-    public void setShortDeepLinkUrl(Context context, String ShortDeepLinkUrl) {
-        SharedPreferences        sharedPreferencesDeeplink = context.getSharedPreferences(
-                "xCashDeeplink", Context.MODE_PRIVATE);
-        SharedPreferences.Editor edit                      = sharedPreferencesDeeplink.edit();
-        edit.putString("ShortDeepLinkUrl", ShortDeepLinkUrl);
-        edit.apply();
-    }
-
-//    =======================Media Source=========================================================
-
-    public void setMediaSource(Context context, String MediaSource) {
-        SharedPreferences        sharedPreferencesDeeplink = context.getSharedPreferences(
-                "xCashMediaSource", Context.MODE_PRIVATE);
-        SharedPreferences.Editor edit                      = sharedPreferencesDeeplink.edit();
-        edit.putString("MediaSource", MediaSource);
-        edit.apply();
-    }
-
-    public String getMediaSource(Context context) {
-        SharedPreferences sharedPreferencesDeeplink = context.getSharedPreferences(
-                "xCashMediaSource", Context.MODE_PRIVATE);
-        return sharedPreferencesDeeplink.getString("MediaSource", "");
-    }
-
-//    =======================Media Source=========================================================
-
 }
